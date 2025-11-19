@@ -3,7 +3,7 @@
 **O Que Faz**:
 - **Serviços**: dois serviços Go — `servicoA` (porta `:8080`) e `servicoB` (porta `:8181`).
 - **Endpoints**: ambos expõem `POST /temperatura` que recebe JSON `{ "cep": "<cep>" }` e retorna cidade e temperaturas.
-- **Observabilidade**: o `otel-collector`, `jaeger`, `prometheus` e `grafana` são definidos no `docker-compose.yaml` para coletar traces/metrics.
+- **Observabilidade**: o `otel-collector`, `Zipkin` são definidos no `docker-compose.yaml` para coletar traces/metrics.
 
 **Como Rodar Local**:
 - Recomendado (via Docker Compose):
@@ -25,9 +25,7 @@ go run ./cmd/webserver
 ```
 
 - UIs úteis:
-- Prometheus: `http://localhost:9090`
-- Jaeger: `http://localhost:16686`
-- Grafana: `http://localhost:3000`
+- Zipkin - `http://localhost:9411`
 
 - Testar endpoints (exemplos):
 
