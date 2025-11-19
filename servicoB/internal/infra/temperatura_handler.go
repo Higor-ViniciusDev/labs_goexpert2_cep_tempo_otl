@@ -10,6 +10,7 @@ import (
 	"github.com/Higor-ViniciusDev/servicoB/internal/usecase"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
+	"go.opentelemetry.io/otel/trace"
 )
 
 type TempHandler struct {
@@ -30,7 +31,7 @@ func (t *TempHandler) BuscarTemperaturaPorCep(w http.ResponseWriter, r *http.Req
 	ctx = otel.GetTextMapPropagator().Extract(ctx, carrier)
 
 	tracer := otel.Tracer("servicoB")
-	ctx, span := tracer.Start(ctx, "BuscarTemperaturaPorCep Handler")
+	ctx, span := tracer.Start(ctx, "BuscarTemperaturaPorCep Handler", trace.WithSpanKind(trace.SpanKindServer))
 	defer span.End()
 
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {

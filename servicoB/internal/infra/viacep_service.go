@@ -9,6 +9,7 @@ import (
 	"github.com/Higor-ViniciusDev/servicoB/internal/entity"
 	"github.com/Higor-ViniciusDev/servicoB/internal/util"
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/trace"
 )
 
 type ViaCepService struct{}
@@ -18,7 +19,7 @@ func NovoViaCepService() *ViaCepService {
 }
 
 func (s *ViaCepService) BuscarCepViaService(ctx context.Context, cep string) (*entity.Cep, error) {
-	_, span := otel.Tracer("servicoB").Start(ctx, "BuscarCepViaService - ViaCep API")
+	_, span := otel.Tracer("servicoB").Start(ctx, "BuscarCepViaService - ViaCep API", trace.WithSpanKind(trace.SpanKindClient))
 	defer span.End()
 
 	url := fmt.Sprintf("http://viacep.com.br/ws/%s/json/", cep)

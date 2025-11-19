@@ -10,6 +10,7 @@ import (
 	"github.com/Higor-ViniciusDev/servicoB/internal/entity"
 	"github.com/valyala/fastjson"
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/trace"
 )
 
 type WeatherService struct{}
@@ -19,7 +20,7 @@ func NovoWeatherService() *WeatherService {
 }
 
 func (s *WeatherService) BuscarTemperaturaPorEndereco(ctx context.Context, cidade string, estadoSigla string) (*entity.Temperatura, error) {
-	_, span := otel.Tracer("servicoB").Start(ctx, "BuscarTemperaturaPorEndereco - WeatherAPI")
+	_, span := otel.Tracer("servicoB").Start(ctx, "BuscarTemperaturaPorEndereco - WeatherAPI", trace.WithSpanKind(trace.SpanKindClient))
 	defer span.End()
 
 	cidadeFormatada := url.QueryEscape(cidade)

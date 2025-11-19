@@ -15,6 +15,7 @@ import (
 	"github.com/valyala/fastjson"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
+	"go.opentelemetry.io/otel/trace"
 )
 
 type ServicoB struct {
@@ -25,7 +26,7 @@ func NewServicoB() *ServicoB {
 }
 
 func (s ServicoB) BuscarInformacaoTempPorCep(ctx context.Context, cep string) (*entity.Temperatura, error) {
-	_, span := otel.Tracer("servicoA").Start(ctx, "Chamada ao servicoB - BuscarInformacaoTempPorCep")
+	_, span := otel.Tracer("servicoA").Start(ctx, "Chamada ao servicoB - BuscarInformacaoTempPorCep", trace.WithSpanKind(trace.SpanKindClient))
 	defer span.End()
 
 	bodyRequest := usecase.InputCepDTO{
