@@ -1,0 +1,16 @@
+scrape_configs:
+  - job_name: other-collector
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['otel-collector:8889']
+      - targets: ['otel-collector:8888']
+
+  - job_name: servicoA
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['servicoA:8080']
+
+  - job_name: servicoB
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['servicoB:8181']
